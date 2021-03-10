@@ -1,0 +1,28 @@
+.title {
+    text-align: center;
+    padding: 20px;
+}
+
+body {
+    background-color: rgb(250, 218, 223);
+}
+
+.shiny-input-container{
+    font-size: large;
+}
+
+.selectize-input {
+    border-width: 2px;
+    border-color: black;
+}
+
+#n {
+    font-size: large;
+    border-width: 2px;
+    border-color: black;
+} 
+
+.label {
+    font-size: large;
+} 
+

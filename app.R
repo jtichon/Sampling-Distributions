@@ -3,8 +3,16 @@ library(tidyverse)
 
 ui <- fluidPage(
   
+  tags$head(
+    tags$link(rel = "stylesheet", type = "text/css", href = "style.css")
+  ),
+  
+  titlePanel(
+    div(class = "title", "Sampling Distributions of Statistics")
+  ),
+  
   fluidRow(column(4,
-           selectInput("distr", "Distribution", 
+          selectInput("distr", "Distribution", 
                        choices = c("Left-Skewed", "Right-Skewed", "Symmetric"),
                        selected = "Symmetric"
                        )
@@ -77,7 +85,7 @@ server <- function(input, output){
     } else if(input$stat == "Median" && input$distr == "Left-Skewed"){
       data.frame(dat=sapply(1:1000, function(i) median(rbeta(input$n, 10, .5))))
     } else if(input$stat == "Range" && input$distr == "Left-Skewed"){
-      data.frame(dat=sapply(1:1000, function(i) {rbeta(input$n, 10, .5); max(x)-min(x)}))
+      data.frame(dat=sapply(1:1000, function(i) {x<-rexp(input$n,10); max(x)-min(x)}))
     } else if(input$stat == "Standard deviation" && input$distr == "Left-Skewed"){
       data.frame(dat=sapply(1:1000, function(i) sd(rbeta(input$n, 10, .5))))
     }    
@@ -91,9 +99,17 @@ server <- function(input, output){
                      color = "black", 
                      fill = "lightblue") +
       theme_light() +
-      labs(title = "Sample from Original Population",
+      labs(title = "Sample from the Original Population",
            x = "x",
-           y = "Frequency")
+           y = "Frequency") +
+      theme(
+        legend.position = "none",
+        plot.title = element_text(size = 20, face = "bold"),
+        axis.title.x = element_text(size = 16),
+        axis.title.y = element_text(size = 16),
+        axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 12)
+      )
   })
   
   output$sampling <- renderPlot({
@@ -104,7 +120,15 @@ server <- function(input, output){
       theme_light() +
       labs(title = "Sampling Distribution of the Statistic",
            x = "Statistic",
-           y = "Frequency")
+           y = "Frequency") +
+      theme(
+        legend.position = "none",
+        plot.title = element_text(size = 20, face = "bold"),
+        axis.title.x = element_text(size = 16),
+        axis.title.y = element_text(size = 16),
+        axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 12)
+      )
   })
 }
 
